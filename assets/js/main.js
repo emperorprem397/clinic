@@ -1,156 +1,136 @@
-/* ============================================================
-   DR. JOSHI DENTAL CARE — Main JS
-   Vanilla JS, no dependencies beyond what's in HTML
-   ============================================================ */
-
 'use strict';
 
-/* ── Navbar scroll state ── */
-(function () {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
-  function onScroll() {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
+/* ── Navbar: dark glass on scroll ── */
+(function(){
+  var navbar = document.getElementById('navbar');
+  if(!navbar) return;
+  function onScroll(){ navbar.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 })();
 
-/* ── Mobile menu ── */
-(function () {
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (!hamburger || !mobileMenu) return;
-
-  hamburger.addEventListener('click', function () {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-    // Animate bars
-    const bars = hamburger.querySelectorAll('span');
-    if (isOpen) {
-      bars[0].style.transform = 'translateY(7px) rotate(45deg)';
-      bars[1].style.opacity = '0';
-      bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-    } else {
-      bars[0].style.transform = '';
-      bars[1].style.opacity = '';
-      bars[2].style.transform = '';
-    }
+/* ── Hamburger / Mobile menu ── */
+(function(){
+  var btn  = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  if(!btn||!menu) return;
+  function close(){
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    var bars = btn.querySelectorAll('span');
+    bars[0].style.transform=''; bars[1].style.opacity=''; bars[2].style.transform='';
+  }
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    var bars = btn.querySelectorAll('span');
+    if(open){
+      bars[0].style.transform='translateY(7px) rotate(45deg)';
+      bars[1].style.opacity='0';
+      bars[2].style.transform='translateY(-7px) rotate(-45deg)';
+    } else { close(); }
   });
-
-  // Close on link click
-  mobileMenu.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      mobileMenu.classList.remove('open');
-      const bars = hamburger.querySelectorAll('span');
-      bars[0].style.transform = '';
-      bars[1].style.opacity = '';
-      bars[2].style.transform = '';
-    });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('click', function(e){
+    if(!btn.contains(e.target)&&!menu.contains(e.target)) close();
   });
 })();
 
 /* ── Scroll reveal ── */
-(function () {
-  const els = document.querySelectorAll('.reveal');
-  if (!els.length) return;
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  els.forEach(function (el) { observer.observe(el); });
+  },{threshold:0.10, rootMargin:'0px 0px -32px 0px'});
+  els.forEach(function(el){ io.observe(el); });
 })();
 
 /* ── Animated counters ── */
-(function () {
-  const counters = document.querySelectorAll('.count-up');
-  if (!counters.length) return;
-
-  function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    const duration = 2000;
-    const step = Math.ceil(target / (duration / 16));
-    let current = 0;
-
-    function tick() {
-      current = Math.min(current + step, target);
-      el.textContent = current.toLocaleString();
-      if (current < target) requestAnimationFrame(tick);
+(function(){
+  var els = document.querySelectorAll('.count-up');
+  if(!els.length) return;
+  function animate(el){
+    var target = parseInt(el.getAttribute('data-target'),10);
+    var dur = 1800, step = Math.ceil(target/(dur/16)), cur = 0;
+    function tick(){
+      cur = Math.min(cur+step, target);
+      el.textContent = cur.toLocaleString();
+      if(cur < target) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ animate(e.target); io.unobserve(e.target); }
     });
-  }, { threshold: 0.5 });
-
-  counters.forEach(function (el) { observer.observe(el); });
+  },{threshold:0.5});
+  els.forEach(function(el){ io.observe(el); });
 })();
 
-/* ── Smooth active nav link on scroll ── */
-(function () {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  if (!sections.length || !navLinks.length) return;
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        navLinks.forEach(function (link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + entry.target.id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach(function (s) { observer.observe(s); });
+/* ── Stats slider (prev/next buttons) ── */
+(function(){
+  var track = document.getElementById('stats-track');
+  var prev  = document.getElementById('stats-prev');
+  var next  = document.getElementById('stats-next');
+  if(!track||!prev||!next) return;
+  var slideW = 320; // width + gap
+  prev.addEventListener('click', function(){ track.scrollBy({left:-slideW, behavior:'smooth'}); });
+  next.addEventListener('click', function(){ track.scrollBy({left:slideW,  behavior:'smooth'}); });
 })();
 
-/* ── Appointment form ── */
-(function () {
-  const form = document.getElementById('appt-form');
-  if (!form) return;
+/* ── Testimonials slider (prev/next + dots) ── */
+(function(){
+  var track = document.getElementById('t-track');
+  var prev  = document.getElementById('t-prev');
+  var next  = document.getElementById('t-next');
+  var dots  = document.querySelectorAll('.t-dot');
+  if(!track) return;
 
-  form.addEventListener('submit', function (e) {
+  var cards  = track.querySelectorAll('.testimonial-card');
+  var total  = cards.length;
+  var current = 0;
+
+  function goTo(idx){
+    current = (idx + total) % total;
+    var cardW = cards[0].offsetWidth + 20; // width + gap
+    track.scrollTo({left: current * cardW, behavior:'smooth'});
+    dots.forEach(function(d,i){
+      d.classList.toggle('active', i===current);
+      d.setAttribute('aria-selected', i===current);
+    });
+  }
+
+  if(prev) prev.addEventListener('click', function(){ goTo(current-1); });
+  if(next) next.addEventListener('click', function(){ goTo(current+1); });
+  dots.forEach(function(dot){
+    dot.addEventListener('click', function(){ goTo(parseInt(dot.getAttribute('data-idx'),10)); });
+  });
+
+  /* Auto-advance every 5s */
+  setInterval(function(){ goTo(current+1); }, 5000);
+})();
+
+/* ── Appointment form: call on submit ── */
+(function(){
+  var form = document.getElementById('appt-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const service = document.getElementById('f-service').value;
-    const time = document.getElementById('f-time').value;
-
-    if (!name || !phone) {
-      alert('Please fill in your name and phone number.');
-      return;
-    }
-
-    // Build tel: link — replace with the actual clinic number
-    const clinicPhone = '9999999999'; // ← UPDATE THIS
-    window.location.href = 'tel:+91' + clinicPhone;
+    var name  = document.getElementById('f-name').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    if(!name||!phone){ alert('Please fill in your name and phone number.'); return; }
+    var clinic = '9999999999'; // ← UPDATE THIS
+    window.location.href = 'tel:+91'+clinic;
   });
 })();
 
-/* ── Phone CTA click tracking ── */
-document.addEventListener('click', function (e) {
-  if (e.target.closest('[data-action="call"]')) {
-    const phone = '9999999999'; // ← UPDATE THIS
-    window.location.href = 'tel:+91' + phone;
+/* ── All call buttons ── */
+document.addEventListener('click', function(e){
+  if(e.target.closest('[data-action="call"]')){
+    var clinic = '9999999999'; // ← UPDATE THIS
+    window.location.href = 'tel:+91'+clinic;
   }
 });
