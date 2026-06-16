@@ -31,7 +31,7 @@
 
   /* Typography */
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Outfit', system-ui, -apple-system, sans-serif;
 
   /* Radii — everything rounded */
   --r-sm:   8px;
@@ -71,6 +71,20 @@ h2 { font-size: clamp(2rem,3.5vw,3rem); font-weight: 700; letter-spacing: -0.01e
 h3 { font-size: clamp(1.1rem,2vw,1.3rem); font-weight: 600; }
 h4 { font-size: 0.95rem; font-weight: 600; }
 p  { font-size: 1rem; line-height: 1.75; }
+
+/* Outfit overrides — match Lumora's geometric bold nav + UI text */
+.nav-links a        { font-weight: 500; letter-spacing: 0.01em; }
+.nav-cta            { font-weight: 700; letter-spacing: 0.01em; }
+.btn                { font-weight: 600; letter-spacing: 0.02em; }
+.eyebrow            { font-weight: 700; letter-spacing: 0.13em; }
+.info-bar-title     { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em; }
+.service-card h3    { font-family: var(--font-body); font-weight: 700; font-size: 1.0rem; letter-spacing: -0.01em; }
+.stat-slide-num     { font-family: var(--font-body); font-weight: 700; }
+.footer-col h4      { letter-spacing: 0.12em; }
+.clinic-name        { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; }
+.hero-card h3       { font-family: var(--font-body); font-weight: 700; }
+.t-name             { font-family: var(--font-body); font-weight: 700; }
+.why-item h4        { font-family: var(--font-body); font-weight: 700; }
 
 /* ── Layout ── */
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
