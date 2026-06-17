@@ -225,10 +225,11 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
    NAVBAR — dark glass floating
 ════════════════════════════════ */
 #navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  position: fixed; top: 36px; left: 0; right: 0; z-index: 1000;
+  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, top 0.4s ease;
   padding: 0;
 }
+#navbar.bar-collapsed { top: 0; }
 #navbar.scrolled {
   background: rgba(7,26,26,0.80);
   backdrop-filter: blur(20px);
@@ -315,14 +316,14 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
 
 .mobile-menu {
   display: none;
-  position: fixed; top: 72px; left: 0; right: 0;
+  position: fixed; top: 108px; left: 0; right: 0;
   background: rgba(7,26,26,0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 20px 0 28px;
   z-index: 999;
   opacity: 0; transform: translateY(-8px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, top 0.4s ease;
 }
 .mobile-menu.open { display: block; opacity: 1; transform: translateY(0); }
 .mobile-menu a {
@@ -349,13 +350,20 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
   min-height: 100vh;
   display: flex; align-items: center;
   overflow: hidden;
+  padding-top: 36px;
 }
-.hero-bg-img {
+/* Auto-swiping hero background slideshow */
+.hero-slideshow {
   position: absolute; inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1800&q=85&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center 25%;
 }
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+}
+.hero-slide.active { opacity: 1; }
 .hero-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(
@@ -364,6 +372,7 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
     rgba(7,26,26,0.70) 45%,
     rgba(7,26,26,0.40) 100%
   );
+  z-index: 1;
 }
 .hero-content {
   position: relative; z-index: 2;
@@ -408,13 +417,13 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
 }
 .hero-trust-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
 
-/* Hero glass card — Lumora "Book a visit" style */
+/* Hero glass card — base */
 .hero-card {
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--r-xl);
-  padding: 36px 30px;
+  padding: 32px 30px;
   box-shadow: var(--shadow-card);
   border: 1px solid rgba(255,255,255,0.60);
 }
@@ -427,34 +436,77 @@ p  { font-size: 1rem; line-height: 1.75; font-weight: 400; }
   font-size: 0.82rem; color: var(--text-muted);
   margin-bottom: 24px;
 }
-.form-group { margin-bottom: 14px; }
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 13px 16px;
-  border: 1.5px solid #E0E8E8;
+
+/* Trust badges card (replaces booking form in hero) */
+.trust-card-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #E5EDED;
+}
+.trust-card-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: var(--teal);
   border-radius: var(--r-md);
-  font-family: var(--font-body);
-  font-size: 0.90rem;
-  color: var(--text-dark);
-  background: #F8FBFB;
-  transition: border-color 0.25s, background 0.25s;
-  -webkit-appearance: none;
+  display: flex; align-items: center; justify-content: center;
 }
-.form-group input::placeholder { color: #A0B8B8; }
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--teal);
-  background: var(--white);
+.trust-card-icon svg { width: 22px; height: 22px; fill: white; }
+.trust-card-header h3 { margin-bottom: 2px; }
+.trust-card-header p { font-size: 0.80rem; color: var(--text-muted); margin: 0; }
+
+.trust-badge-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+.trust-badge-row { display: flex; align-items: center; gap: 14px; }
+.trust-badge-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--off-white);
+  border: 1px solid var(--grey-100);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
 }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.hero-card .btn { width: 100%; justify-content: center; margin-top: 6px; font-size: 0.95rem; padding: 15px; }
+.trust-badge-icon svg { width: 18px; height: 18px; color: var(--teal); }
+.trust-badge-title { font-family: var(--font-body); font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+.trust-badge-sub { font-family: var(--font-body); font-size: 0.76rem; color: var(--text-muted); margin-top: 1px; }
+
 .card-note {
   display: flex; align-items: center; justify-content: center; gap: 6px;
   margin-top: 13px; font-size: 0.74rem; color: var(--text-muted);
 }
 .card-note svg { width: 13px; height: 13px; color: var(--teal); flex-shrink: 0; }
+
+/* ════════════════════════════════
+   STICKY TOP CALL BAR
+════════════════════════════════ */
+#top-call-bar {
+  background: var(--navy);
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1100;
+  transition: transform 0.4s ease;
+}
+#top-call-bar.bar-hidden { transform: translateY(-100%); }
+.top-call-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+}
+.top-call-msg {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.01em;
+}
+.top-call-msg svg { width: 14px; height: 14px; color: var(--teal-bright); flex-shrink: 0; }
+.top-call-link {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font-body);
+  font-size: 0.80rem; font-weight: 700;
+  color: var(--teal-bright);
+  white-space: nowrap;
+  transition: color 0.25s;
+}
+.top-call-link:hover { color: var(--white); }
+.top-call-link svg { width: 14px; height: 14px; }
+
 
 /* ════════════════════════════════
    INFO BAR (below hero) — Lumora bottom strip
@@ -1055,10 +1107,13 @@ footer {
   .hours-grid { grid-template-columns: 1fr; }
   .section-header-row { flex-direction: column; align-items: flex-start; }
   .hero-trust { flex-wrap: wrap; gap: 16px; }
+  .top-call-msg { display: none; }
+  .top-call-inner { justify-content: center; padding: 8px 0; }
 }
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: 1fr; }
   .floating-cta .label { display: none; }
   .floating-cta { padding: 14px; border-radius: 50%; }
   .testimonial-card { width: 290px; padding: 28px 22px; }
+  .trust-badge-sub { display: none; }
 }

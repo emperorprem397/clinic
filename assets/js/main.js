@@ -1,5 +1,19 @@
 'use strict';
 
+/* ── Top call bar: hides on scroll down, navbar slides up to top ── */
+(function(){
+  var bar    = document.getElementById('top-call-bar');
+  var navbar = document.getElementById('navbar');
+  if(!bar||!navbar) return;
+  function onScroll(){
+    var collapsed = window.scrollY > 60;
+    bar.classList.toggle('bar-hidden', collapsed);
+    navbar.classList.toggle('bar-collapsed', collapsed);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
 /* ── Navbar: dark glass on scroll ── */
 (function(){
   var navbar = document.getElementById('navbar');
@@ -7,6 +21,18 @@
   function onScroll(){ navbar.classList.toggle('scrolled', window.scrollY > 40); }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+})();
+
+/* ── Hero background slideshow: auto crossfade ── */
+(function(){
+  var slides = document.querySelectorAll('.hero-slide');
+  if(slides.length < 2) return;
+  var current = 0;
+  setInterval(function(){
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 5000);
 })();
 
 /* ── Hamburger / Mobile menu ── */
@@ -113,24 +139,10 @@
   setInterval(function(){ goTo(current+1); }, 5000);
 })();
 
-/* ── Appointment form: call on submit ── */
-(function(){
-  var form = document.getElementById('appt-form');
-  if(!form) return;
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var name  = document.getElementById('f-name').value.trim();
-    var phone = document.getElementById('f-phone').value.trim();
-    if(!name||!phone){ alert('Please fill in your name and phone number.'); return; }
-    var clinic = '9999999999'; // ← UPDATE THIS
-    window.location.href = 'tel:+91'+clinic;
-  });
-})();
-
 /* ── All call buttons ── */
 document.addEventListener('click', function(e){
   if(e.target.closest('[data-action="call"]')){
-    var clinic = '9999999999'; // ← UPDATE THIS
+    var clinic = '7568521210'; // ← UPDATE THIS
     window.location.href = 'tel:+91'+clinic;
   }
 });
