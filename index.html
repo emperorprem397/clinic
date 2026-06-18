@@ -14,23 +14,7 @@
 <body>
 
 <!-- ══════════════════════════════════════
-  TOP STICKY CALL BAR
-══════════════════════════════════════ -->
-<div id="top-call-bar" role="banner" aria-label="Quick call bar">
-  <div class="container top-call-inner">
-    <span class="top-call-msg">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-      Open Mon–Sat · 9am–8pm · Same-week appointments available
-    </span>
-    <a href="tel:+917568521210" class="top-call-link" data-action="call">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.07 1a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 6.91a16 16 0 006.29 6.29l.42-.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      Call Now: +91 75685 21210
-    </a>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-  NAVBAR
+  NAVBAR — floating glass pill (matches reference)
 ══════════════════════════════════════ -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <div class="container">
@@ -50,11 +34,9 @@
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#contact" class="nav-cta" aria-label="Book Appointment">
-        Book Appointment
-        <span class="nav-cta-dot" aria-hidden="true">
-          <svg viewBox="0 0 10 10"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-        </span>
+      <a href="tel:+917568521210" class="nav-cta" data-action="call" aria-label="Call Now">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.07 1a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 6.91a16 16 0 006.29 6.29l.42-.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call Now: +91 75685 21210
       </a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
@@ -73,7 +55,7 @@
 
 
 <!-- ══════════════════════════════════════
-  HERO
+  HERO — minimal, photo-led, glass navbar floats over it
 ══════════════════════════════════════ -->
 <section id="hero" aria-label="Hero">
   <div class="hero-slideshow" aria-hidden="true">
@@ -85,98 +67,64 @@
   <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="container">
-    <div class="hero-content">
+    <div class="hero-content hero-content-minimal">
 
-      <!-- Left text -->
+      <!-- Left text only — right side stays empty so the photo shows through -->
       <div class="hero-left">
         <div class="hero-badge-wrap reveal">
-          <span class="eyebrow eyebrow-light">Now Accepting New Patients</span>
+          <span class="eyebrow">New Patients Welcome</span>
         </div>
-        <h1 class="reveal reveal-delay-1">
-          Your Smile Deserves
-          <em>Expert Care</em>
+        <h1 class="reveal reveal-delay-1 hero-h1-dark">
+          Exceptional Care<br/>For a Healthier,
+          <em>Brighter Smile</em>
         </h1>
-        <p class="reveal reveal-delay-2">
-          At Dr. Joshi Dental Care, we combine advanced technology with a gentle touch to deliver exceptional dental outcomes — from routine checkups to complete smile transformations.
+        <p class="reveal reveal-delay-2 hero-p-dark">
+          Advanced dentistry with a gentle touch.<br/>Personalized care for you and your family.
         </p>
         <div class="hero-actions reveal reveal-delay-3">
-          <a href="tel:+917568521210" class="btn btn-white" data-action="call">
+          <a href="tel:+917568521210" class="btn btn-primary" data-action="call">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.07 1a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 6.91a16 16 0 006.29 6.29l.42-.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            Call to Book
+            Call Now
           </a>
-          <a href="#services" class="btn btn-outline-white">
+          <a href="#services" class="btn btn-white">
             View Services
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
-        <div class="hero-trust reveal reveal-delay-4" aria-label="Key statistics">
-          <div class="hero-trust-item">
-            <span class="number"><span class="count-up" data-target="15">0</span>+</span>
-            <span class="label">Years Experience</span>
+
+        <!-- Floating stat cards — replaces old inline trust numbers -->
+        <div class="hero-stat-cards reveal reveal-delay-4" aria-label="Key statistics">
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="hero-stat-text">
+              <div class="hero-stat-num"><span class="count-up" data-target="15">0</span>+</div>
+              <div class="hero-stat-label">Years Experience</div>
+            </div>
           </div>
-          <div class="hero-trust-divider" aria-hidden="true"></div>
-          <div class="hero-trust-item">
-            <span class="number"><span class="count-up" data-target="8000">0</span>+</span>
-            <span class="label">Happy Patients</span>
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div class="hero-stat-text">
+              <div class="hero-stat-num"><span class="count-up" data-target="8000">0</span>+</div>
+              <div class="hero-stat-label">Happy Patients</div>
+            </div>
           </div>
-          <div class="hero-trust-divider" aria-hidden="true"></div>
-          <div class="hero-trust-item">
-            <span class="number"><span class="count-up" data-target="98">0</span>%</span>
-            <span class="label">Satisfaction Rate</span>
+          <div class="hero-stat-card">
+            <div class="hero-stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div class="hero-stat-text">
+              <div class="hero-stat-num"><span class="count-up" data-target="98">0</span>%</div>
+              <div class="hero-stat-label">Satisfaction Rate</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Right: trust badges glass card -->
-      <div class="hero-card hero-trust-card reveal reveal-delay-2">
-        <div class="trust-card-header">
-          <div class="trust-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <div>
-            <h3>Trusted by Patients</h3>
-            <p>Rated excellent across every visit</p>
-          </div>
-        </div>
-
-        <div class="trust-badge-list">
-          <div class="trust-badge-row">
-            <div class="trust-badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            </div>
-            <div class="trust-badge-text">
-              <div class="trust-badge-title">4.9 / 5 Google Rating</div>
-              <div class="trust-badge-sub">Based on 200+ verified reviews</div>
-            </div>
-          </div>
-
-          <div class="trust-badge-row">
-            <div class="trust-badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-            </div>
-            <div class="trust-badge-text">
-              <div class="trust-badge-title">IDA Certified Implantologist</div>
-              <div class="trust-badge-sub">Internationally trained &amp; accredited</div>
-            </div>
-          </div>
-
-          <div class="trust-badge-row">
-            <div class="trust-badge-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-            </div>
-            <div class="trust-badge-text">
-              <div class="trust-badge-title">Pain-Free Dentistry Promise</div>
-              <div class="trust-badge-sub">Modern anaesthesia, zero anxiety</div>
-            </div>
-          </div>
-        </div>
-
-        <a href="tel:+917568521210" class="btn btn-dark" data-action="call" style="width:100%;justify-content:center;margin-top:6px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.07 1a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 6.91a16 16 0 006.29 6.29l.42-.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Call Now: +91 75685 21210
-        </a>
-      </div>
-
+      <!-- Right side intentionally empty — the photo shows through for a minimal, professional look -->
     </div>
   </div>
 </section>

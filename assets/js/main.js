@@ -1,19 +1,5 @@
 'use strict';
 
-/* ── Top call bar: hides on scroll down, navbar slides up to top ── */
-(function(){
-  var bar    = document.getElementById('top-call-bar');
-  var navbar = document.getElementById('navbar');
-  if(!bar||!navbar) return;
-  function onScroll(){
-    var collapsed = window.scrollY > 60;
-    bar.classList.toggle('bar-hidden', collapsed);
-    navbar.classList.toggle('bar-collapsed', collapsed);
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-})();
-
 /* ── Navbar: dark glass on scroll ── */
 (function(){
   var navbar = document.getElementById('navbar');
