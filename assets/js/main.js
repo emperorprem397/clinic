@@ -125,6 +125,26 @@
   setInterval(function(){ goTo(current+1); }, 5000);
 })();
 
+/* ── Floating call button: hide while hero is in view on mobile ──
+   The hero already has its own prominent "Call Now" button, so on small
+   screens the fixed floating button only fades in once the visitor scrolls
+   past the hero — this stops it overlapping the hero stat cards. */
+(function(){
+  var fab  = document.querySelector('.floating-cta');
+  var hero = document.getElementById('hero');
+  if(!fab || !hero) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(window.innerWidth > 768){ fab.classList.remove('fab-hidden'); return; }
+      fab.classList.toggle('fab-hidden', entry.isIntersecting);
+    });
+  }, {threshold: 0.12});
+  io.observe(hero);
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 768) fab.classList.remove('fab-hidden');
+  });
+})();
+
 /* ── All call buttons ── */
 document.addEventListener('click', function(e){
   if(e.target.closest('[data-action="call"]')){
